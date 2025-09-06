@@ -144,21 +144,24 @@ def main():
     st.sidebar.info("📊 Vocabulary: 57 characters")
     
     # Settings
+    # Text length slider
     length = st.sidebar.slider(
-        "Text Length",
+        "Max Length",
         min_value=50,
-        max_value=1000,
-        value=200,
-        step=50
+        max_value=20000,
+        value=500,
+        step=50,
+        help="Maximum number of characters to generate (up to 20,000)"
     )
     
+    # Temperature slider
     temperature = st.sidebar.slider(
-        "Creativity (Temperature)",
+        "Temperature",
         min_value=0.1,
         max_value=2.0,
         value=1.0,
         step=0.1,
-        help="Lower values = more predictable, Higher values = more creative"
+        help="Higher = more creative, lower = more predictable"
     )
     
     # Main interface
