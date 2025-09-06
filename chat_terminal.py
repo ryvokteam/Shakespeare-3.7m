@@ -114,13 +114,11 @@ Examples:
             print(f"❌ Error loading model: {e}")
             sys.exit(1)
     
-    def generate_text(self, prompt: str, length: int = None, temperature: float = None):
+    def generate_text(self, prompt, length=200, temperature=1.0):
         """Generate text from prompt"""
         if not self.model:
-            return "No model loaded"
-        
-        length = length or self.settings['length']
-        temperature = temperature or self.settings['temperature']
+            print("Model not loaded!")
+            return
         
         char_to_idx = self.vocab['char_to_idx']
         idx_to_char = self.vocab['idx_to_char']
@@ -142,7 +140,12 @@ Examples:
                 generated = list(prompt_indices) if prompt_indices else []
                 current_char = prompt_indices[-1] if prompt_indices else np.random.randint(len(idx_to_char))
                 
-                for _ in range(length):
+                generated_text = prompt
+                
+                # Progress indicator
+                print(f"\n🎭 Generating {length} characters...")
+                
+                for i in range(length):
                     input_tensor = torch.tensor([[current_char]], device=self.device)
                     output, hidden = self.model(input_tensor, hidden)
                     
@@ -153,13 +156,12 @@ Examples:
                     # Sample next character
                     current_char = torch.multinomial(probabilities, 1).item()
                     generated.append(current_char)
+                    generated_text += idx_to_char[current_char]
+                    
+                    # Show progress every 100 characters
+                    if (i + 1) % 100 == 0:
+                        print(f"Progress: {i + 1}/{length} characters")
                 
-                # Convert back to text
-                generated_text = prompt
-                for idx in generated[len(prompt_indices):]:
-                    generated_text += idx_to_char[idx]
-                
-                self.last_generation = generated_text
                 return generated_text
                 
         except Exception as e:
@@ -248,6 +250,25 @@ Examples:
         if arg.strip():
             # Treat as generate command
             self.do_generate(arg)
+
+    def show_help(self):
+        print("\n" + "="*60)
+        print("🎭 SHAKESPEARE AI CHAT - HELP")
+        print("="*60)
+        print("Available commands:")
+        print("  generate <prompt> [length] [temperature] - Generate text")
+        print("  help - Show this help message")
+        print("  quit - Exit the program")
+        print()
+        print("Examples:")
+        print('  generate "ROMEO:" 2000 1.0')
+        print('  generate "HAMLET:" 5000 0.8')
+        print('  generate "To be or not to be" 10000 1.2')
+        print()
+        print("Parameters:")
+        print("  length: 50-20000 characters (default: 200)")
+        print("  temperature: 0.1-2.0 (default: 1.0)")
+        print("="*60)
 
 def main():
     print("🎭 Shakespeare Text Generator Chat Terminal")
