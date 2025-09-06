@@ -215,7 +215,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **⭐ Star this repository if you find it useful!**
 
-[![GitHub stars](https://img.shields.io/github/stars/yourusername/shakespeare-ai-chat?style=social)](https://github.com/yourusername/shakespeare-ai-chat)
-[![GitHub forks](https://img.shields.io/github/forks/yourusername/shakespeare-ai-chat?style=social)](https://github.com/yourusername/shakespeare-ai-chat/fork)
+[![GitHub stars](https://img.shields.io/github/stars/ryvokteam/shakespeare-ai-chat?style=social)](https://github.com/yourusername/shakespeare-ai-chat)
+[![GitHub forks](https://img.shields.io/github/forks/ryvokteam/shakespeare-ai-chat?style=social)](https://github.com/yourusername/shakespeare-ai-chat/fork)
 
 </div>
